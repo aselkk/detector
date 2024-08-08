@@ -1,0 +1,10 @@
+{
+  "/api": {
+    "target": "https://onboard-lwdrsd6qmq-uc.a.run.app",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    }
+  }
+}

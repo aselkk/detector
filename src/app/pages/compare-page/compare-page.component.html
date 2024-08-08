@@ -1,0 +1,56 @@
+<div>
+  <h2>Compare</h2>
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+    <div formArrayName="usernames">
+      @for (usernameControl of usernames.controls; track $index ) {
+      <div>
+        <label for="username-{{ $index }}">Username {{ $index + 1 }}:</label>
+        <input
+          type="text"
+          id="username-{{ $index }}"
+          [formControlName]="$index"
+          required
+        />
+      </div>
+      }
+    </div>
+    <button type="button" (click)="addUsername()">Add Username</button>
+    <div>
+      <label for="team">Team:</label>
+      <input type="text" id="team" formControlName="team" required />
+    </div>
+    <div>
+      <label for="files">Select Files:</label>
+      <input
+        type="file"
+        id="files"
+        (change)="onFileSelected($event)"
+        multiple
+      />
+    </div>
+    <button type="submit">Upload</button>
+  </form>
+  <div>
+    @if (uploadedImages.length > 0) {
+    <h3>Uploaded Images</h3>
+    @for (image of uploadedImages; track image) {
+    <div>
+      <img [src]="image.url" [alt]="image.meta.usernames" width="200" />
+      <div>
+        <strong>Usernames:</strong> {{ image.meta.usernames.join(', ') }}<br />
+        <strong>Team:</strong> {{ image.meta.team }}
+      </div>
+    </div>
+    } }
+  </div>
+  @if(loading) {
+  <div class="spinner">
+    <p>comparing, please wait...🌀</p>
+  </div>
+  }
+  <app-compare-result
+    [imageUrl]="imageUrl"
+    [boxes]="boxes"
+    [names]="names"
+  ></app-compare-result>
+</div>
